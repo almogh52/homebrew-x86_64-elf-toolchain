@@ -27,7 +27,7 @@ class X8664ElfGcc < Formula
   end
 
   def install
-    binutils = Formula["x86_64-elf-binutils"]
+    binutils = Formula["almogh52/x86_64-elf-toolchain/x86_64-elf-binutils"]
     languages = %w[c c++]
 
     ENV['PATH'] += ":#{binutils.prefix/"bin"}"
