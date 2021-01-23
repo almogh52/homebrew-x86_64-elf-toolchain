@@ -10,6 +10,7 @@ class X8664ElfGcc < Formula
   depends_on "isl"
   depends_on "libmpc"
   depends_on "mpfr"
+  depends_on "texinfo"
   depends_on "almogh52/x86_64-elf-toolchain/x86_64-elf-binutils"
 
   option "with-libgcc-mcmodel-large", "Compile libgcc with mcmodel=large"
@@ -19,9 +20,11 @@ class X8664ElfGcc < Formula
 
   def install
     binutils = Formula["almogh52/x86_64-elf-toolchain/x86_64-elf-binutils"]
+    texinfo = Formula["texinfo"]
     languages = %w[c c++]
 
     ENV['PATH'] += ":#{binutils.prefix/"bin"}"
+    ENV['PATH'] += ":#{texinfo.prefix/"bin"}"
 
     mkdir "build" do
       system "../configure", "--target=x86_64-elf",
