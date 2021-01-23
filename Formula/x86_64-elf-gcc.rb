@@ -1,30 +1,21 @@
 class X8664ElfGcc < Formula
   desc "GNU compiler collection for x86_64 ELF"
   homepage "https://gcc.gnu.org/"
-  url "https://ftp.gnu.org/gnu/gcc/gcc-9.2.0/gcc-9.2.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gcc/gcc-9.2.0/gcc-9.2.0.tar.xz"
-  version "9.2.0"
-  sha256 "ea6ef08f121239da5695f76c9b33637a118dcf63e24164422231917fa61fb206"
+  url "https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz"
+  sha256 "b8dd4368bb9c7f0b98188317ee0254dd8cc99d1e3a18d0ff146c855fe16c1d8c"
+  version "10.2.0"
 
   depends_on "gmp"
   depends_on "isl"
   depends_on "libmpc"
   depends_on "mpfr"
-  depends_on "x86_64-elf-binutils"
+  depends_on "almogh52/x86_64-elf-toolchain/x86_64-elf-binutils"
 
   option "with-libgcc-mcmodel-large", "Compile libgcc with mcmodel=large"
 
   # GCC bootstraps itself, so it is OK to have an incompatible C++ stdlib
   cxxstdlib_check :skip
-
-  # Fix system headers for Catalina SDK
-  # (otherwise __OSX_AVAILABLE_STARTING ends up undefined)
-  if DevelopmentTools.clang_build_version >= 1100
-    patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/b8b8e65e/gcc/9.2.0-catalina.patch"
-      sha256 "0b8d14a7f3c6a2f0d2498526e86e088926671b5da50a554ffa6b7f73ac4f132b"
-    end
-  end
 
   def install
     binutils = Formula["almogh52/x86_64-elf-toolchain/x86_64-elf-binutils"]
